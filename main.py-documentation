@@ -1,0 +1,109 @@
+# Main.py - Technical Documentation
+
+## Overview
+The `main.py` file serves as the command-line interface for the Password Strength Analyzer. It provides a user-friendly way to interact with the password analysis functionality, featuring colored output and detailed analysis options.
+
+## Dependencies
+- `argparse`: For parsing command-line arguments
+- `colorama`: For cross-platform colored terminal output
+- `src.analyzer.password_analyzer`: Custom module for password analysis
+
+## Functions
+
+### get_strength_color(strength: str) -> str
+Maps password strength levels to appropriate colors for visual feedback.
+
+**Parameters:**
+- `strength`: String representing password strength ("Weak", "Moderate", "Strong")
+
+**Returns:**
+- Color code from colorama.Fore corresponding to the strength level
+- Weak: Red
+- Moderate: Yellow
+- Strong: Green
+- Default: White
+
+### main()
+The primary function that handles the command-line interface and program flow.
+
+**Features:**
+- Command-line argument parsing
+- Password analysis execution
+- Colored output formatting
+- Detailed analysis display (optional)
+
+## Command-Line Arguments
+
+### Required Arguments
+- `password`: The password string to analyze
+
+### Optional Arguments
+- `-v, --verbose`: Flag to display detailed analysis
+- `-h, --help`: Show help message and exit
+
+## Output Format
+
+### Basic Output (Default)
+```
+Password Analysis Results:
+-------------------------
+Strength: [Strength Level]
+Score: [Score]/10
+
+Suggestions for improvement:
+- [Suggestion 1]
+- [Suggestion 2]
+...
+```
+
+### Verbose Output (with -v flag)
+Includes additional information:
+```
+[Basic Output]
+
+Detailed Analysis:
+Length Score: [Score]/5
+Complexity Score: [Score]/5
+
+Character Counts:
+- Uppercase: [Count]
+- Lowercase: [Count]
+- Numbers: [Count]
+- Special: [Count]
+```
+
+## Color Scheme
+- Headers and titles: Cyan
+- Strength indicators:
+  - Strong: Green
+  - Moderate: Yellow
+  - Weak: Red
+- Suggestions: Yellow
+- Character counts:
+  - Present (>0): Green
+  - Absent (0): Red
+
+## Usage Examples
+
+### Basic Analysis
+```bash
+python main.py "mypassword123"
+```
+
+### Detailed Analysis
+```bash
+python main.py "mypassword123" -v
+```
+
+## Error Handling
+- Invalid arguments trigger help message
+- Password analysis exceptions are caught and displayed
+- Color support is handled by colorama initialization
+
+## Future Improvements
+- Add silent mode option
+- Support for batch password analysis
+- JSON output format
+- Progress bar for analysis
+- Unicode icons for visual feedback
+- Table formatting for detailed analysis
