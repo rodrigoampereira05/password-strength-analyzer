@@ -85,3 +85,22 @@ class TestPasswordAnalyzer:
         assert "lowercase" in str(result["feedback"])
         assert "uppercase" in str(result["feedback"])
         assert "number(s)" in str(result["feedback"])
+
+    def test_common_password(self, analyzer):
+        """Test common password"""
+        result = analyzer.analyze_password("password123")
+        assert result["is_common"] is True
+        assert "commonly used" in result["feedback"][0]
+    
+    def test_keyboard_pattern(self, analyzer):
+        """Test password with a keyboard pattern"""
+        result = analyzer.analyze_password("qwerty123")
+        assert "qwerty" in result["keyboard_patterns"]
+        assert "keyboard pattern" in result["feedback"][0]
+
+    def test_strong_password(self, analyzer):
+        """Test password with strong password criteria"""
+        result = analyzer.analyze_password("K9$mP2#vL5")
+        assert result["is_common"] is False
+        assert len(result["keyboard_patterns"]) == 0
+        assert len(result["feedback"]) == 0
